@@ -1,0 +1,17 @@
+Prerequsite to install Ansible is Python
+
+Commands To Install Ansible are 
+ 1) sudo apt update -y
+ 2) sudo apt install software-properties-common
+ 3) sudo add-apt-repository --yes --update ppa:ansible/ansible
+ 4) sudo apt install ansible
+
+
+----> Steps to configure the Ansible in UBUNTU SERVER <----
+
+* We have to create the Inventory file and add the all Private DNS in that Inventory file 
+  then,
+ we can access all thy Client Servers using the Master Ansible Server i.e, To upgrade any Patch to the 
+ Client Servers
+
+* By Creating the Playbooks we can Do any kind of the activity
