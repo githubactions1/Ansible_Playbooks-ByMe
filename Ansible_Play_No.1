@@ -1,0 +1,27 @@
+---
+   - name : Playbook To Install Nginx
+     hosts : web
+     gather_facts : no
+     become_true : yes
+     tasks : 
+        - name : Update SERVER
+          shell : apt update -y
+
+        - name : Install Nginx
+          shell : apt install nginx -yes
+
+        - name : Start Nginx Service
+          shell : service nginx Start
+
+---
+  - name : Playbook To install unzip 
+    hosts : web
+    gather_facts : no
+    become_true : no
+    tasks :
+      - name : Update SERVER
+        shell : apt update -y
+
+      - name : install unzip
+        shell : apt install unzip -y 
+

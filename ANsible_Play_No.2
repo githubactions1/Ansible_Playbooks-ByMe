@@ -1,0 +1,36 @@
+# Playbook To install the Nginx Using controller local folder
+
+---
+- name: Playbook to install Nginx on Webservers
+  hosts: Webservers
+  gather_facts: no
+  tasks:
+    - name: Run apt update
+      shell: apt update -y
+    - name: Install nginx server
+      apt: >
+        name=nginx 
+        state=present
+    - name: copy the files to index destination folder
+      copy: >
+        src=/tmp/dockertest1/index.html 
+        dest=/var/www/html/index.nginx-debian.html
+        owner=root 
+        group=root 
+        mode=0644
+    - name: copy the style files to destination folder.
+      copy: >
+        src=/tmp/dockertest1/style.css 
+        dest=/var/www/html/style.css 
+        owner=root
+        group=root 
+        mode=0644
+    - name: copy the javascript files to destinatipn folder
+      copy: >
+        src=/tmp/dockertest1/file.js 
+        dest=/var/www/html/file.js 
+        owner=root
+        group=root 
+        mode=0644
+    - name: restart nginx server
+      shell: service nginx restart

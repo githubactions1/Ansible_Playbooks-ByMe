@@ -1,0 +1,47 @@
+# Playbook To install the Nginx Using Client Local Nginx Folder
+
+--- 
+  - name : Playbook To Install NGINX using Client Local Folder
+    hosts : Webservers
+    gather_facts : no
+    tasks :
+        - name : Update the server 
+          shell : apt update -y
+
+        - name : Git Clone
+          shell : cd /tmp && git clone https://github.com/mavrick202/dockertest1.git
+
+        - name : Install Nginx
+          apt : >
+             name=nginx
+             state=present
+
+        - name : Copy the files to Index Destination Folder
+          copy : >
+            src=/tmp/dockertest1/index.html
+            dest=/var/www/html/index.nginx-debian.html
+            remote_src=yes
+            owner=root
+            group=root
+            mode=0644
+
+        - name : copy the style files to Destination folder
+          copy : > 
+            src=/tmp/dockertest1/style.css
+            dest=/var/www/html/style.css
+            remote_src=yes
+            owner=root
+            group=root
+            mode=0644
+
+        - name : copy the javascript file to thye Destination folder
+          copy : > 
+            src=/tmp/dockertest1/file.js
+            dest=/var/www/html/file.js
+            remote_src=yes
+            owner=root
+            group=root
+            mode=0644
+
+        - name : Start Nginx Service
+          shell : Service nginx start      
