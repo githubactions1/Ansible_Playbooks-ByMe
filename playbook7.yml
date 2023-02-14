@@ -12,8 +12,8 @@
           - webserver
           - update
 
-      - name : To Install packpackage
-        package : >
+      - name : To Install package
+        apt : >
          name=nginx
          state=present
         tags :
@@ -21,7 +21,7 @@
           - install
 
       - name : Copy configuration file
-        template :
+        copy :
         src : nginx.conf.j2
         dest : /etc/nginx/nginx.conf
         tags :
