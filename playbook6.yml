@@ -18,7 +18,7 @@
           state=present
 
       - name : copy the index files to destination folder
-        src : /tmp/ansibletemplatetesting/index.j2
+        src : /tmp/ansibletemplatetesting/index.js
         dest : /var/www/html/index.nginx-debian.html
         owner : root
         group : root    
