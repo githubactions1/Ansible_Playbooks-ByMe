@@ -1,0 +1,45 @@
+# Playbook To Install Nginx in the webserver and, RUN them using the ""Tags""
+
+---
+  - name : Playbook To install Nginx On Webserver using """Ansible-tags"""
+    hosts : all
+    become : true
+    vars : "hello-world!"
+    tasks :
+      - name : APT Update
+        shell : apt update -y
+        tags :
+          - webserver
+          - update
+
+      - name : To Install packpackage
+        package : >
+         name=nginx
+         state=present
+        tags :
+          - webserver
+          - install
+
+      - name : Copy configuration file
+        template :
+        src : nginx.conf.j2
+        dest : /etc/nginx/nginx.conf
+        tags :
+          - webserver
+          - configure
+
+      - name : To Start server
+        service : >
+          name=nginx
+          state=present
+        tags :
+          - webserver
+          - start
+
+
+###### Here by using the "TAGS" we can only run that particular resource i.e,
+
+####  ------- ansible-playbook -i hosts exampleplaybook.yml --tags webserver ----------
+### -->> The above code defines that, In the total Ansoble playbook the TAG which contain WEBSERVER will RUN i.e, that is the major use of the """TAGS"""        
+
+###   ------ ansible-playbook -i hosts exampleplaybook.yml --tags configure -----------  
