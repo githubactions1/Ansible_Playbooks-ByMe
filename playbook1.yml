@@ -1,9 +1,8 @@
 ---
-   - name: Playbook To Install Nginx
-     hosts: web
-     tasks:
-        - name: Update SERVER
-          shell: apt update -y
+  - name: Playbook To Install Nginx
+    tasks:
+      - name: Update SERVER
+        shell: apt updat
 
         - name: Install Nginx
           shell: apt install nginx -yes
