@@ -1,0 +1,42 @@
+---
+  - name : playbook to install nginx in webservers using Variables
+    hosts : all
+    gather_facts : yes
+    vars : 
+      custom_headings : "This is my First Playbook using Variables"
+      todays_date : "{{ansible_facts['date_time'] ['date'] }}"
+      host_name : "{{ansible_facts ['host_name']}}"
+      fdqn_name : "{{ansible_facts['fdqn'] }}"
+      ip_addresss: "{{ansible_facts['eth0'] ['ipv4'] [address] }}"
+    tasks :
+      - name : APt Update
+        shell : apt update -y
+
+      - name : install Nginx
+        apt : >
+          name=nginx
+          state=present
+
+      - name : copy the index files to destination folder
+        src : /tmp/ansibletemplatetesting/index.j2
+        dest : /var/www/html/index.nginx-debian.html
+        owner : root
+        group : root    
+        mode : 0644
+
+      - name : copy the style files to the destination folder
+        src : /tmp/ansibletemplatetesting/style.css
+        dest : /var/www/html/style.css
+        owner : root
+        group : root
+        mode : 0644
+
+      - name : copy the scorekeeper files to destination folder
+        src : /tmp/ansibletemplatetesting/scorekepper.js
+        dest : /var/www/html/scorekeeper.js
+        owner : root
+        group : root
+        mode : 0644
+
+      - name : restart nginx
+        shell : service nginx restart

@@ -1,0 +1,33 @@
+---  
+  - name : Playbook to install Nginx in Ubuntu & Redhat
+    hosts : all
+    tasks : 
+       - name : To APT Update
+         shell : apt update -y
+         when : ansible_os_family == "Debian"
+
+       - name : Install Nginx
+         apt : >
+            name : nginx
+            state : present
+         when : ansible-os_family == "Debian"
+
+       - name : Start server
+         shell : service nginx start
+         when : ansible_os_family == "Debian"
+
+       - name : To YUM Update
+         shell : yum update -y    
+         when : ansible_os_family == "Redhat"
+
+       - name :  Install Epel-release in Redhat server
+         yum : >
+           name :  epel-release
+           state : present
+         when : ansible-os_family == "Redhat" 
+
+       - name : Install Nginx in Redhat server
+         yum : >
+           name : nginx
+           state : present
+         when : ansible-os_family == "Redhat"
